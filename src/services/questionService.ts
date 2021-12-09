@@ -27,6 +27,11 @@ async function getById(id: number) {
     return structuredQuestion;
 }
 
+/* async function answerQuestion(questionId: number, answer: string, userToken: string) {
+    await questionRepository.answerQuestion(questionId, answer)
+} */
+
+
 export {
     add,
     getById,

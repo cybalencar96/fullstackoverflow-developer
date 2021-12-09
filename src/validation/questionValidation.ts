@@ -7,6 +7,11 @@ const post = joi.object({
 	tags: joi.string().required(),
 });
 
+const postAnswer = joi.object({
+    answer: joi.string().required(),
+});
+
 export {
     post,
+	postAnswer,
 }

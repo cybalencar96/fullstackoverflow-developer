@@ -40,6 +40,27 @@ const getQuestion: RequestHandler = async (req, res, next) => {
     }
 }
 
+/* const answerQuestion: RequestHandler = async (req, res, next) => {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    const id = Number(req.params.id);
+    const { answer } = req.body;
+
+    if (!token || token.length !== 36) {
+        res.status(401);
+    }
+
+    if (!id) {
+        res.status(400).send('Id is mandatory and must be a number');
+    }
+
+    try {
+        await questionService.answerQuestion(id, answer, token);
+        res.send();
+    } catch (error) {
+        next(error);
+    }
+} */
+
 export {
     postQuestion,
     getQuestion,
