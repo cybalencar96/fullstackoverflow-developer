@@ -1,12 +1,13 @@
 import express from "express";
 import questionRouter from './routers/questionRouter';
-import { ServerErrorMiddleware } from "./middlewares/serverErrorMiddleware";
+import { serverErrorMiddleware } from "./middlewares/serverErrorMiddleware";
+import * as questionController from './controllers/questionController';
 
 const app = express();
 app.use(express.json());
 
 app.use('/questions', questionRouter);
 
-app.use(ServerErrorMiddleware)
+app.use(serverErrorMiddleware)
 
 export default app;

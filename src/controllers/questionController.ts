@@ -18,9 +18,9 @@ const postQuestion: RequestHandler = async (req, res, next) => {
     try {
         const addedQuestionId = await questionService.add(question, student, classs, tags);
 
-        res.send(addedQuestionId);
+        res.status(200).send({ id: addedQuestionId });
     } catch (error) {
-        next();
+        next(error);
     }
 }
 
