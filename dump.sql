@@ -1,11 +1,13 @@
 CREATE TABLE "questions" (
 	"id" serial NOT NULL,
 	"question" TEXT NOT NULL,
-	"user_id" int NOT NULL,
-	"submited_at" DATE NOT NULL DEFAULT NOW(),
+	"student" varchar(255) NOT NULL,
+	"class" varchar(3) NOT NULL,
+	"tags" varchar(255) NOT NULL,
+	"submitedAt" DATE NOT NULL DEFAULT NOW(),
 	"answer" TEXT,
-	"answered_by" int,
-	"aswered_at" DATE,
+	"answeredBy" int,
+	"asweredAt" DATE,
 	CONSTRAINT "questions_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -23,6 +25,8 @@ CREATE TABLE "users" (
 
 ALTER TABLE "questions" ADD CONSTRAINT "questions_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "questions" ADD CONSTRAINT "questions_fk1" FOREIGN KEY ("answered_by") REFERENCES "users"("id");
+
+
 
 
 
