@@ -1,3 +1,4 @@
+import { boolean } from 'joi';
 import * as questionRepository from '../repositories/questionRepository';
 
 async function add(question: string, student: string, classs: string, tags: string ): Promise<Number> {
@@ -6,6 +7,27 @@ async function add(question: string, student: string, classs: string, tags: stri
     return addedQuestionFromDb.id;
 }
 
+async function getById(id: number) {
+    const question = await questionRepository.getOne(id);
+    
+    const structuredQuestion = { 
+        ...question,
+        answered: true, 
+    };
+
+    delete structuredQuestion.id;
+
+    if (!question.answer) {
+        delete structuredQuestion.answer;
+        delete structuredQuestion.answeredAt;
+        delete structuredQuestion.answeredBy;
+        structuredQuestion.answered = false;
+    }
+
+    return structuredQuestion;
+}
+
 export {
     add,
+    getById,
 }
