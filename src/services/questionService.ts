@@ -1,7 +1,7 @@
-import { boolean } from 'joi';
 import * as questionRepository from '../repositories/questionRepository';
 import * as userService from './userService';
 import { Question, QuestionAnswered, QuestionNotAnswered, AnswerQuestion } from '../contracts/QuestionContract';
+import { convertDate } from './datesService';
 
 async function add(questionToAdd: Question): Promise<Number> {
     const {
@@ -28,6 +28,8 @@ async function getById(id: number): Promise<QuestionAnswered | QuestionNotAnswer
         answer
     } = await questionRepository.getOne(id);
 
+    console.log()
+
     const structuredQuestion: QuestionAnswered | QuestionNotAnswered = Object.assign({},
         { 
             question,
@@ -35,9 +37,9 @@ async function getById(id: number): Promise<QuestionAnswered | QuestionNotAnswer
             class: classs,
             tags,
             answered: !!answeredAt,
-            submitAt: submitedAt,
+            submitAt: convertDate(submitedAt),
         },
-        answeredAt ? { answeredAt } : null,
+        answeredAt ? { answeredAt: convertDate(answeredAt) } : null,
         answeredAt ? { answeredBy } : null,
         answeredAt ? { answer } : null,
       );
@@ -66,7 +68,7 @@ async function getNotAnswered(): Promise<QuestionNotAnswered[]> {
             question: question.question,
             student: question.student,
             class: question.classs,
-            submitAt: question.submitedAt,
+            submitAt: convertDate(question.submitedAt),
         };
     })
 
