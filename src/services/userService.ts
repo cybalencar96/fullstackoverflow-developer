@@ -11,9 +11,7 @@ async function add(name: string, classs: string): Promise<string> {
 }
 
 async function getByToken(token: string): Promise<User> {
-    const user = userRepository.getOne(token);
-    
-    await userRepository.getOne(token);
+    const user = await userRepository.getOne(token);
 
     return user;
 }

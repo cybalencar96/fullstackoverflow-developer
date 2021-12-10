@@ -3,8 +3,6 @@ import * as questionRepository from '../repositories/questionRepository';
 import * as userService from './userService';
 import { Question, QuestionAnswered, QuestionNotAnswered, AnswerQuestion } from '../contracts/QuestionContract';
 
-
-
 async function add(questionToAdd: Question): Promise<Number> {
     const {
         question,

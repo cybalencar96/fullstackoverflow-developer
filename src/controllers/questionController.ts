@@ -5,7 +5,7 @@ import * as questionService from '../services/questionService';
 const postQuestion: RequestHandler = async (req, res, next) => {
     const { error } = questionValidation.post.validate(req.body);
     if (error) {
-        res.status(400).send(error.details[0].message);
+        return res.status(400).send(error.details[0].message);
     }
 
     const {
@@ -28,7 +28,7 @@ const getQuestion: RequestHandler = async (req, res, next) => {
     const id = Number(req.params.id);
 
     if (!id) {
-        res.status(400).send('Id is mandatory and must be a number');
+        return res.status(400).send('Id is mandatory and must be a number');
     }
 
     try {
@@ -36,6 +36,10 @@ const getQuestion: RequestHandler = async (req, res, next) => {
 
         res.send(question);
     } catch (error) {
+        if (error.name === 'NotFound') {
+            return res.status(404).send(error.message);
+        }
+
         next(error);
     }
 }
@@ -62,7 +66,7 @@ const answerQuestion: RequestHandler = async (req, res, next) => {
     try {
         await questionService.answerQuestion({ questionId: id, answer, userToken: token });
         
-        res.send();
+        res.status(204).send();
     } catch (error) {
         if (error.name === 'NotFound') {
             return res.status(404).send(error.message);
