@@ -16,10 +16,10 @@ export interface QuestionDB extends Question {
 export interface QuestionNotAnswered {
     question: string;
     student: string;
-    classs: string;
+    class: string;
     tags?: string;
     answered?: boolean;
-    submitedAt: string;
+    submitAt: string;
 }
 
 export interface QuestionAnswered extends QuestionNotAnswered {

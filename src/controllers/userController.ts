@@ -11,11 +11,10 @@ const add: RequestHandler = async (req, res, next) => {
 
     const {
         name,
-        classs,
     } = req.body;
 
     try {
-        const token = await userService.add(name, classs);
+        const token = await userService.add(name, req.body.class);
         
         res.send({ token });
     } catch (error) {

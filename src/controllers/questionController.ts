@@ -4,6 +4,7 @@ import * as questionService from '../services/questionService';
 
 const postQuestion: RequestHandler = async (req, res, next) => {
     const { error } = questionValidation.post.validate(req.body);
+    
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
@@ -11,12 +12,11 @@ const postQuestion: RequestHandler = async (req, res, next) => {
     const {
         question,
 	    student,
-	    classs,
 	    tags,
     } = req.body;
 
     try {
-        const addedQuestionId = await questionService.add({ question, student, classs, tags });
+        const addedQuestionId = await questionService.add({ question, student, classs: req.body.class, tags });
 
         res.status(200).send({ id: addedQuestionId });
     } catch (error) {

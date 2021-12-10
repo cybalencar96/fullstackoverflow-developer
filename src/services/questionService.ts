@@ -17,21 +17,30 @@ async function add(questionToAdd: Question): Promise<Number> {
 }
 
 async function getById(id: number): Promise<QuestionAnswered | QuestionNotAnswered>   {
-    const question = await questionRepository.getOne(id);
-    
-    const structuredQuestion = { 
-        ...question,
-        answered: true, 
-    };
+    const {
+        question,
+        student,
+        classs,
+        tags,
+        submitedAt,
+        answeredAt,
+        answeredBy,
+        answer
+    } = await questionRepository.getOne(id);
 
-    delete structuredQuestion.id;
-
-    if (!question.answer) {
-        delete structuredQuestion.answer;
-        delete structuredQuestion.answeredAt;
-        delete structuredQuestion.answeredBy;
-        structuredQuestion.answered = false;
-    }
+    const structuredQuestion: QuestionAnswered | QuestionNotAnswered = Object.assign({},
+        { 
+            question,
+            student,
+            class: classs,
+            tags,
+            answered: !!answeredAt,
+            submitAt: submitedAt,
+        },
+        answeredAt ? { answeredAt } : null,
+        answeredAt ? { answeredBy } : null,
+        answeredAt ? { answer } : null,
+      );
 
     return structuredQuestion;
 }
@@ -56,8 +65,8 @@ async function getNotAnswered(): Promise<QuestionNotAnswered[]> {
             id: question.id,
             question: question.question,
             student: question.student,
-            classs: question.classs,
-            submitedAt: question.submitedAt,
+            class: question.classs,
+            submitAt: question.submitedAt,
         };
     })
 
