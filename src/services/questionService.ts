@@ -50,9 +50,22 @@ async function answerQuestion(answerInfo: AnswerQuestion) {
     await questionRepository.answer({ questionId, answer, userId: user.id });
 }
 
+async function getNotAnswered(): Promise<QuestionNotAnswered[]> {
+    const questions = await questionRepository.getMany({ answered: false });
+
+    return questions.map(question => {
+        delete question.answeredBy;
+        delete question.answeredAt;
+        delete question.answer;
+
+        return question;
+    });
+}
+
 
 export {
     add,
     getById,
     answerQuestion,
+    getNotAnswered,
 }

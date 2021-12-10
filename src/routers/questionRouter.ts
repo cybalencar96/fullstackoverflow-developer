@@ -4,6 +4,7 @@ import * as questionController from '../controllers/questionController';
 const router = new (Router as any)();
 
 router.post('/', questionController.postQuestion);
+router.get('/', questionController.getNotAnswered);
 router.get('/:id', questionController.getQuestion);
 router.post('/:id', questionController.answerQuestion);
 

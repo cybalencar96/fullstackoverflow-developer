@@ -18,7 +18,7 @@ export interface QuestionNotAnswered {
     student: string;
     classs: string;
     tags: string;
-    answered: boolean;
+    answered?: boolean;
     submitedAt: string;
 }
 

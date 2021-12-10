@@ -72,8 +72,23 @@ const answerQuestion: RequestHandler = async (req, res, next) => {
     }
 }
 
+const getNotAnswered: RequestHandler = async (req, res, next) => {
+    try {
+        const questions = await questionService.getNotAnswered();
+
+        if (!questions.length) {
+            return res.status(204).send(questions);
+        }
+
+        res.send(questions);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export {
     postQuestion,
     getQuestion,
     answerQuestion,
+    getNotAnswered,
 }
