@@ -18,7 +18,7 @@ async function add(questionToAdd: Question): Promise<QuestionDB> {
     } = questionToAdd;
 
     const result = await connection.query(`
-        INSERT INTO questions (question, student, class, tags) VALUES ($1, $2, $3, $4) RETURNING id
+        INSERT INTO questions (question, student, classs, tags) VALUES ($1, $2, $3, $4) RETURNING id
     `, [question, student, classs, tags]);
 
     if (!result.rows[0]) {
@@ -47,11 +47,16 @@ async function getMany(filters: FiltersGetMany = {}): Promise<QuestionDB[]> {
 
     let query = baseQuestionSelectQuery;
 
-    if (answered) {
-        query += ' AND questions.answeredAt IS NOT NULL'
+    if (answered === false) {
+        query += ' AND questions."answeredAt" IS NULL'
+    }
+
+    if (answered === true) {
+        query += ' AND questions."answeredAt" IS NOT NULL'
     }
 
     const result = await connection.query(query,[]);
+
     return result.rows;
 }
 

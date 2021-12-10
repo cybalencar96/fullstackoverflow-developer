@@ -3,7 +3,7 @@ const baseQuestionSelectQuery = `
         questions.id,
         questions.question, 
         questions.student, 
-        questions.class, 
+        questions.classs, 
         questions.tags, 
         questions."answeredAt", 
         questions."submitedAt", 

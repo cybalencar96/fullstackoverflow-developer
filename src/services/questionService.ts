@@ -51,13 +51,17 @@ async function answerQuestion(answerInfo: AnswerQuestion) {
 async function getNotAnswered(): Promise<QuestionNotAnswered[]> {
     const questions = await questionRepository.getMany({ answered: false });
 
-    return questions.map(question => {
-        delete question.answeredBy;
-        delete question.answeredAt;
-        delete question.answer;
+    const structuredQuestions = questions.map(question => {
+        return {
+            id: question.id,
+            question: question.question,
+            student: question.student,
+            classs: question.classs,
+            submitedAt: question.submitedAt,
+        };
+    })
 
-        return question;
-    });
+    return structuredQuestions;
 }
 
 
