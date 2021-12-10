@@ -4,10 +4,10 @@ CREATE TABLE "questions" (
 	"student" varchar(255) NOT NULL,
 	"class" varchar(3) NOT NULL,
 	"tags" varchar(255) NOT NULL,
-	"submitedAt" DATE NOT NULL DEFAULT NOW(),
+	"submitedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 	"answer" TEXT,
 	"answeredBy" int,
-	"asweredAt" DATE,
+	"asweredAt" TIMESTAMP WITH TIME ZONE,
 	CONSTRAINT "questions_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
