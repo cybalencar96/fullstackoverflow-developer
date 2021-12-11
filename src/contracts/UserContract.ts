@@ -1,6 +1,10 @@
-export default interface User {
+interface User {
     id: number,
     name: string,
     class: string,
     token: string,
+}
+
+export {
+    User,
 }

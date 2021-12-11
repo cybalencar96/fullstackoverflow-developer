@@ -1,11 +1,11 @@
-export interface Question {
+interface Question {
     question: string;
     student: string;
     classs: string;
     tags: string;
 }
 
-export interface QuestionDB extends Question {
+interface QuestionDB extends Question {
     id: number;
     submitedAt: string;
     answer: string;
@@ -13,7 +13,8 @@ export interface QuestionDB extends Question {
     answeredBy: string;
 }
 
-export interface QuestionNotAnswered {
+interface QuestionNotAnswered {
+    id?: number,
     question: string;
     student: string;
     class: string;
@@ -22,16 +23,23 @@ export interface QuestionNotAnswered {
     submitAt: string;
 }
 
-export interface QuestionAnswered extends QuestionNotAnswered {
+interface QuestionAnswered extends QuestionNotAnswered {
     answer: string;
     answeredAt: string;
     answeredBy: string;
 }
 
-export interface AnswerQuestion {
+interface AnswerQuestion {
     questionId: number;
     answer: string;
     userToken?: string;
     userId?: number;
 }
 
+export {
+    Question,
+    QuestionDB,
+    QuestionNotAnswered,
+    QuestionAnswered,
+    AnswerQuestion,
+}
