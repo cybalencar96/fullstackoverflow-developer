@@ -9,7 +9,7 @@ interface FiltersGetMany {
 }
 
 
-async function add(questionToAdd: Question): Promise<QuestionDB> {
+async function add(questionToAdd: Question): Promise<Number> {
     const {
         question,
         student,
@@ -21,12 +21,7 @@ async function add(questionToAdd: Question): Promise<QuestionDB> {
         INSERT INTO questions (question, student, classs, tags) VALUES ($1, $2, $3, $4) RETURNING id
     `, [question, student, classs, tags]);
 
-    if (!result.rows[0]) {
-        throw new QuestionError('Question not added');
-    }
-
-    const addedQuestion = await getOne(result.rows[0].id);
-    return addedQuestion;
+    return result.rows[0].id;
 }
 
 async function getOne(id: number): Promise<QuestionDB> {

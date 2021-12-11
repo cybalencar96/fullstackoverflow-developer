@@ -3,6 +3,7 @@ import * as userService from './userService';
 import { Question, QuestionAnswered, QuestionNotAnswered, AnswerQuestion } from '../contracts/QuestionContract';
 import { convertDate } from './datesService';
 import NotFound from '../errors/NotFound';
+import QuestionError from '../errors/QuestionError';
 
 async function add(questionToAdd: Question): Promise<Number> {
     const {
@@ -12,9 +13,13 @@ async function add(questionToAdd: Question): Promise<Number> {
         tags
     } = questionToAdd;
 
-    const addedQuestionFromDb = await questionRepository.add({ question, student, classs, tags });
+    const addedId = await questionRepository.add({ question, student, classs, tags });
 
-    return addedQuestionFromDb.id;
+    if (!addedId || addedId < 1) {
+        throw new QuestionError('question not added');
+    }
+
+    return addedId;
 }
 
 async function getById(id: number): Promise<QuestionAnswered | QuestionNotAnswered>   {

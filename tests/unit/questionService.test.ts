@@ -18,7 +18,7 @@ const mockQuestion: Question = {
 }
 
 const mockAnsweredQuestionDB: QuestionDB = {
-    id: 0,
+    id: 1,
     submitedAt: '',
     answer: 'AlgumaCoisa',
     answeredAt: 'ontem',
@@ -30,7 +30,7 @@ const mockAnsweredQuestionDB: QuestionDB = {
 }
 
 const mockNotAnsweredQuestionDB: QuestionDB = {
-    id: 0,
+    id: 1,
     submitedAt: '',
     question: '',
     student: '',
@@ -42,7 +42,7 @@ const mockNotAnsweredQuestionDB: QuestionDB = {
 }
 
 const mockQuestionDB: QuestionDB = {
-    id: 0,
+    id: 1,
     submitedAt: '',
     answer: null,
     answeredAt: null,
@@ -75,7 +75,7 @@ const mockNotAnsweredQuestionService: QuestionNotAnswered = {
 }
 
 const mockUser: User = {
-    id: 0,
+    id: 1,
     name: '',
     class: '',
     token: ''
@@ -89,7 +89,7 @@ const mockAnswerQuestion: AnswerQuestion = {
 describe('Questions unit tests', () => {
     describe('add question service', () => {
         test('should return addedQuestion id', async () => {
-            jest.spyOn(questionRepository, 'add').mockImplementationOnce(async () => mockQuestionDB)
+            jest.spyOn(questionRepository, 'add').mockImplementationOnce(async () => 1)
     
             const id = await sut.add(mockQuestion);
     
@@ -152,7 +152,7 @@ describe('Questions unit tests', () => {
             const result = await sut.getNotAnswered();
 
             const mockNotAnswereds: QuestionNotAnswered = {
-                id: 0,
+                id: 1,
                 question: '',
                 student: '',
                 class: '',
